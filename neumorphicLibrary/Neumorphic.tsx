@@ -1,3 +1,7 @@
+// NOTE - MOSTLY MADE BY https://github.com/shaneboyar/react-native-neumorphic
+// modified for compatability with NativeWind, Expo and modern React-Native
+// as well as custom use for the JetWeather app
+
 import React from "react";
 import { ViewStyle, View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -199,7 +203,7 @@ const Neumorph = (Component: any, config?: NeumorphConfig) => {
         config,
     );
 
-    // console.log(cStyle, lightShadow, darkShadow, gradientProps, cProps.style);
+    console.log(lightShadow, darkShadow);
     const NewComponent =
         !config || config.shape !== NeumorphConfigShapes.Pressed ? (
             <View
@@ -221,6 +225,7 @@ const Neumorph = (Component: any, config?: NeumorphConfig) => {
             </View>
         ) : (
             <View style={{ height, width }}>
+                {/* <InsetShadow {...lightShadow}> */}
                 <InsetShadow {...lightShadow}>
                     <InsetShadow {...darkShadow}>
                         <LinearGradient

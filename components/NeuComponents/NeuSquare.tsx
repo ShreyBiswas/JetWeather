@@ -1,7 +1,7 @@
 import { View, Text, type ViewProps } from "react-native";
 import Neumorphic, {
     NeumorphConfigShapes,
-} from "../neumorphicComponents/Neumorphic";
+} from "../../neumorphicLibrary/Neumorphic";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
 // USAGE:
@@ -12,6 +12,11 @@ import { useThemeColor } from "@/hooks/useThemeColor";
 //      darkColor="#F4F4FA"
 //      borderRadius={20}
 //      buttonTypeString="Unpressed" // or Flat or Pressed
+//      styling={{ // align components within the box
+//         flex: 1,
+//         alignItems: "center",
+//         justifyContent: "center",
+//      }}
 // >
 //      <Text className="text-black-500 text-xl font-bold">asdfg</Text> // embed any other component
 // </NeuSquare>
@@ -24,13 +29,12 @@ export type NeuSquareProps = ViewProps & {
     width?: number;
     borderRadius?: number;
     lightColor?: string;
-    darkColor?: string;
     children?: any;
+    styling?: any;
 };
 
 export type NeuProps = NeuSquareProps & {
     buttonTypeString: string;
-    children: any;
 };
 
 export type ButtonType =
@@ -45,32 +49,28 @@ let RegularNeumorphic = (
         height,
         width,
         borderRadius,
-        lightColor,
-        darkColor = "#F5F5FA",
+        lightColor = "#F5F5FA",
         children,
-        ...otherProps
+        styling,
     }: NeuSquareProps,
     config?: any,
 ) => {
     let backgroundColour = useThemeColor(
-        { light: lightColor, dark: darkColor },
+        { light: lightColor, dark: "#F8F8FF" },
         "background",
     );
-
-    console.log(children);
 
     let baseComponent = ({}) => {
         return (
             <View
-                style={[
-                    {
-                        height: height,
-                        width: width,
-                        backgroundColor: backgroundColour,
-                        borderRadius: borderRadius,
-                    },
-                    otherProps,
-                ]}
+                style={{
+                    height: height,
+                    width: width,
+                    backgroundColor: backgroundColour,
+                    borderRadius: borderRadius,
+                    ...styling,
+                }}
+                className="height:${height} flex-1 items-center justify-center p-2"
             >
                 {children}
             </View>
@@ -80,15 +80,15 @@ let RegularNeumorphic = (
     return Neumorphic(baseComponent, config);
 };
 
-export function NeuSquare({
+export function NeuOutsetSquare({
     height,
     width,
     borderRadius,
     lightColor,
-    darkColor,
+
     buttonTypeString,
     children,
-    ...otherProps
+    styling,
 }: NeuProps) {
     let buttonType: NeumorphConfigShapes = NeumorphConfigShapes.Flat;
 
@@ -98,11 +98,11 @@ export function NeuSquare({
             break;
         case "UNPRESSED":
         case "CONCAVE":
-            buttonType = NeumorphConfigShapes.Convex;
+            buttonType = NeumorphConfigShapes.Concave;
             break;
         case "PRESSED":
         case "CONVEX":
-            buttonType = NeumorphConfigShapes.Concave;
+            buttonType = NeumorphConfigShapes.Convex;
             break;
         default:
             console.log("Unrecognised");
@@ -123,14 +123,71 @@ export function NeuSquare({
             width,
             borderRadius,
             lightColor,
-            darkColor,
             children,
+            styling,
         },
         NeuConfig,
     );
 
     return (
-        <View {...otherProps} className="">
+        <View className="">
+            <NeumorphicBox></NeumorphicBox>
+        </View>
+    );
+}
+
+export function NeuInsetSquare({
+    height,
+    width,
+    borderRadius,
+    lightColor,
+    buttonTypeString,
+    children,
+    styling,
+}: NeuProps) {
+    let buttonType: NeumorphConfigShapes = NeumorphConfigShapes.Flat;
+
+    switch (buttonTypeString.toUpperCase()) {
+        case "FLAT":
+            buttonType = NeumorphConfigShapes.Flat;
+            break;
+        case "UNPRESSED":
+        case "CONCAVE":
+            buttonType = NeumorphConfigShapes.Concave;
+            break;
+        case "PRESSED":
+        case "CONVEX":
+            buttonType = NeumorphConfigShapes.Convex;
+            break;
+        default:
+            console.log("Unrecognised");
+            buttonType = NeumorphConfigShapes.Flat;
+            break;
+    }
+
+    buttonType = NeumorphConfigShapes.Pressed;
+
+    let NeuConfig = {
+        distance: 50,
+        intensity: 0.15,
+        blur: 50,
+        shape: buttonType,
+    };
+
+    let NeumorphicBox = RegularNeumorphic(
+        {
+            height,
+            width,
+            borderRadius,
+            lightColor,
+            children,
+            styling,
+        },
+        NeuConfig,
+    );
+
+    return (
+        <View className="">
             <NeumorphicBox></NeumorphicBox>
         </View>
     );
