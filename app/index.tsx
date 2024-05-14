@@ -40,14 +40,14 @@ export default function HomeScreen() {
                 />
             }
         >
-            <ThemedView style={styles.titleContainer}>
+            <ThemedView>
                 <ThemedText type="title">JetWeather</ThemedText>
             </ThemedView>
-            <ThemedView style={styles.stepContainer}>
+            <ThemedView>
                 <ThemedText className="text-lg">Upcoming Flights</ThemedText>
-                <ThemedView style={styles.flightList}>
+                <ThemedView className="flex-1">
                     {flights.map((flight) => (
-                        <View key={flight.id} style={styles.flightRow}>
+                        <View key={flight.id} className="rounded-lg p-4 bg-white shadow-md my-2 border border-gray-200">
                             <Text>
                                 {flight.departureCode} ➔ {flight.arrivalCode}
                             </Text>
@@ -59,6 +59,3 @@ export default function HomeScreen() {
         </ParallaxScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-});

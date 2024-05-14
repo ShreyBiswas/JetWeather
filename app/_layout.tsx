@@ -24,7 +24,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="cities"
+        name="(tabs)/cities"
         options={{
           title: 'Saved Cities',
           tabBarIcon: ({ color, focused }) => (
