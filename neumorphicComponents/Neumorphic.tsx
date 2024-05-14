@@ -129,10 +129,11 @@ const calculateNeumorph = (
             shadowRadius: config.blur,
 
             backgroundColor: "#0000",
-            elevation: 4,
+            elevation: 24,
         } as ShadowStyles;
         darkShadow = {
-            shadowColor: calculateColor(backgroundColor, -1 * config.intensity),
+            // shadowColor: calculateColor(backgroundColor, -1 * config.intensity),
+            shadowColor: "#000000",
             shadowOffset: {
                 width: config.distance,
                 height: config.distance,
@@ -141,7 +142,7 @@ const calculateNeumorph = (
             shadowRadius: config.blur,
             backgroundColor: "#0000",
 
-            elevation: 4,
+            elevation: 24,
         } as ShadowStyles;
     } else {
         lightShadow = {
@@ -168,11 +169,11 @@ const calculateNeumorph = (
         end: { x: 0.707, y: -0.707 },
     };
 
-    console.log("{ lightShadow, darkShadow, gradient }: ", {
-        lightShadow,
-        darkShadow,
-        gradientProps,
-    });
+    // console.log("{ lightShadow, darkShadow, gradient }: ", {
+    //     lightShadow,
+    //     darkShadow,
+    //     gradientProps,
+    // });
     return { lightShadow, darkShadow, gradientProps };
 };
 
@@ -191,17 +192,28 @@ const Neumorph = (Component: any, config?: NeumorphConfig) => {
         backgroundColor = "#FFFFFF",
         height,
         width,
+        borderRadius,
     } = cStyle as IConfigParams;
     const { lightShadow, darkShadow, gradientProps } = calculateNeumorph(
         backgroundColor,
         config,
     );
 
-    console.log(cStyle, lightShadow, darkShadow, gradientProps, cProps.style);
+    // console.log(cStyle, lightShadow, darkShadow, gradientProps, cProps.style);
     const NewComponent =
         !config || config.shape !== NeumorphConfigShapes.Pressed ? (
-            <View style={[darkShadow as ShadowStyles, { height, width }]}>
-                <View style={lightShadow as ShadowStyles}>
+            <View
+                style={[
+                    darkShadow as ShadowStyles,
+                    { height, width, borderRadius },
+                ]}
+            >
+                <View
+                    style={[
+                        lightShadow as ShadowStyles,
+                        { height, width, borderRadius },
+                    ]}
+                >
                     <LinearGradient {...{ style: cStyle, ...gradientProps }}>
                         {c.props.children}
                     </LinearGradient>

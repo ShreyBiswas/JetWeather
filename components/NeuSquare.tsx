@@ -4,98 +4,134 @@ import Neumorphic, {
 } from "../neumorphicComponents/Neumorphic";
 import { useThemeColor } from "@/hooks/useThemeColor";
 
-import { LinearGradient } from "expo-linear-gradient"; //! REMOVE
+// USAGE:
+// <NeuSquare
+//      height={100}
+//      width={100}
+//      lightColor="#F5F5FA"
+//      darkColor="#F4F4FA"
+//      borderRadius={20}
+//      buttonTypeString="Unpressed" // or Flat or Pressed
+// >
+//      <Text className="text-black-500 text-xl font-bold">asdfg</Text> // embed any other component
+// </NeuSquare>
+
+//TODO: May need to create custom function apart from RegularNeumorphic for each type of box & positioning within
+// At least one for the grid view, one for the buttons
 
 export type NeuSquareProps = ViewProps & {
     height?: number;
     width?: number;
+    borderRadius?: number;
     lightColor?: string;
     darkColor?: string;
+    children?: any;
 };
 
-let RegularNeumorphic = (component: any, config?: any) => {
-    let reactComponent = ({}) => {
+export type NeuProps = NeuSquareProps & {
+    buttonTypeString: string;
+    children: any;
+};
+
+export type ButtonType =
+    | "Flat"
+    | "Unpressed"
+    | "Pressed"
+    | "Convex"
+    | "Concave";
+
+let RegularNeumorphic = (
+    {
+        height,
+        width,
+        borderRadius,
+        lightColor,
+        darkColor = "#F5F5FA",
+        children,
+        ...otherProps
+    }: NeuSquareProps,
+    config?: any,
+) => {
+    let backgroundColour = useThemeColor(
+        { light: lightColor, dark: darkColor },
+        "background",
+    );
+
+    console.log(children);
+
+    let baseComponent = ({}) => {
         return (
             <View
-                style={{
-                    height: 200,
-                    width: 100,
-                    backgroundColor: "#FFFFFF",
-                }}
-            ></View>
+                style={[
+                    {
+                        height: height,
+                        width: width,
+                        backgroundColor: backgroundColour,
+                        borderRadius: borderRadius,
+                    },
+                    otherProps,
+                ]}
+            >
+                {children}
+            </View>
         );
     };
 
-    return Neumorphic(reactComponent, config);
+    return Neumorphic(baseComponent, config);
 };
 
 export function NeuSquare({
     height,
     width,
+    borderRadius,
     lightColor,
     darkColor,
+    buttonTypeString,
+    children,
     ...otherProps
-}: NeuSquareProps) {
-    // const backgroundColour = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+}: NeuProps) {
+    let buttonType: NeumorphConfigShapes = NeumorphConfigShapes.Flat;
+
+    switch (buttonTypeString.toUpperCase()) {
+        case "FLAT":
+            buttonType = NeumorphConfigShapes.Flat;
+            break;
+        case "UNPRESSED":
+        case "CONCAVE":
+            buttonType = NeumorphConfigShapes.Convex;
+            break;
+        case "PRESSED":
+        case "CONVEX":
+            buttonType = NeumorphConfigShapes.Concave;
+            break;
+        default:
+            console.log("Unrecognised");
+            buttonType = NeumorphConfigShapes.Flat;
+            break;
+    }
 
     let NeuConfig = {
         distance: 50,
         intensity: 0.15,
-        blur: 60,
-        shape: NeumorphConfigShapes.Flat,
+        blur: 50,
+        shape: buttonType,
     };
 
-    let NeumorphicBox = RegularNeumorphic({}, NeuConfig);
-
-    console.log(NeumorphicBox());
+    let NeumorphicBox = RegularNeumorphic(
+        {
+            height,
+            width,
+            borderRadius,
+            lightColor,
+            darkColor,
+            children,
+        },
+        NeuConfig,
+    );
 
     return (
-        <View {...otherProps}>
-            <View
-                style={[
-                    {
-                        elevation: 24,
-                        shadowColor: "#d9d9d9",
-                        shadowOffset: { width: 0, height: 0 }, //! FAKE DATA
-                        shadowOpacity: 1,
-                    },
-                    {
-                        height: 200,
-                        width: 100,
-                        // borderColor: "#FF0000",
-                        // borderWidth: 1,
-                        backgroundColor: "#0000",
-                    },
-                ]}
-            >
-                <View
-                    style={{
-                        elevation: 24,
-                        shadowColor: "#ffffff",
-                        shadowOffset: { width: 50, height: 50 }, //! FAKE DATA
-                        shadowOpacity: 1,
-                        shadowRadius: 60,
-                        height: 200,
-                        // borderColor: "#00FF00",
-                        // borderWidth: 1,
-                        backgroundColor: "#0000",
-                    }}
-                >
-                    <LinearGradient
-                        start={{ x: -0.707, y: 0.707 }}
-                        end={{ x: 0.707, y: -0.707 }}
-                        colors={["#ffffff", "#d9d9d9"]}
-                        style={{
-                            height: 200,
-                            // borderColor: "#0000FF",
-                            // borderWidth: 1,
-                            backgroundColor: "#0000",
-                        }}
-                    />
-                </View>
-            </View>
-            <Text>asd</Text>
-            <NeumorphicBox />
+        <View {...otherProps} className="">
+            <NeumorphicBox></NeumorphicBox>
         </View>
     );
 }

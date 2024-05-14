@@ -1,5 +1,3 @@
-import { NeuSquare } from "@/components/NeuSquare";
-
 import { Image, StyleSheet, Platform, View, Text } from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
@@ -60,5 +58,4 @@ export default function HomeScreen() {
     );
 }
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
