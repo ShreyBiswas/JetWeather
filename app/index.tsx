@@ -56,59 +56,9 @@ export default function HomeScreen() {
                     ))}
                 </ThemedView>
             </ThemedView>
-
-            <View className="flex-1 items-center justify-center">
-                <NeuSquare
-                    height={100}
-                    width={100}
-                    lightColor="red"
-                    darkColor="blue"
-                />
-
-                <Text
-                    className="
-        text-2xl
-        font-bold
-        text-gray-500
-      "
-                >
-                    Edit app/index.tsx to edit this screen.
-                </Text>
-            </View>
         </ParallaxScrollView>
     );
 }
 
 const styles = StyleSheet.create({
-    titleContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: 8,
-    },
-    stepContainer: {
-        gap: 8,
-        marginBottom: 8,
-    },
-    reactLogo: {
-        height: 178,
-        width: 290,
-        bottom: 0,
-        left: 0,
-        position: "absolute",
-    },
-    flightList: {
-        margin: "auto",
-        width: "90%",
-        padding: "20px",
-    },
-    flightRow: {
-        display: "flex",
-        justifyContent: "space-between",
-        backgroundColor: "#f4f4f4",
-        padding: "10px",
-        marginTop: "10px",
-        borderRadius: "5px",
-        fontSize: "16px",
-        fontWeight: "bold",
-    },
 });
