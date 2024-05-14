@@ -41,64 +41,23 @@ export default function TabTwoScreen() {
                 />
             }
         >
-            <ThemedView style={styles.titleContainer}>
+            <ThemedView>
                 <ThemedText type="title">Cities</ThemedText>
             </ThemedView>
 
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView className="p-4">
                 {weatherData.map((info, index) => (
-                    <View key={index} style={styles.box}>
-                        <Text style={styles.city}>{info.city}</Text>
-                        <Text style={styles.temperature}>
+                    <View key={index} className="flex-row items-center p-4 bg-white shadow-md my-2 border border-gray-200 rounded-lg">
+                        <Text className="flex-1 font-bold text-lg">{info.city}</Text>
+                        <Text className="font-bold pr-2">
                             {info.temperature}
                         </Text>
-                        <Text style={styles.condition}>{info.condition}</Text>
+                        <Text className="text-gray-500">
+                            {info.condition}
+                        </Text>
                     </View>
                 ))}
             </ScrollView>
         </ParallaxScrollView>
     );
 }
-
-const styles = StyleSheet.create({
-    headerImage: {
-        color: "#808080",
-        bottom: -90,
-        left: -35,
-        position: "absolute",
-    },
-    titleContainer: {
-        flexDirection: "row",
-        gap: 8,
-    },
-    container: {
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        padding: 10,
-        gap: 10,
-    },
-    box: {
-        width: 100,
-        height: 100,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f0f0f0",
-        borderRadius: 10,
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.22,
-        shadowRadius: 2.22,
-        elevation: 3,
-    },
-    city: {
-        fontSize: 16,
-        fontWeight: "bold",
-    },
-    temperature: {
-        fontSize: 14,
-    },
-    condition: {
-        fontSize: 12,
-    },
-});
