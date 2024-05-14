@@ -41,14 +41,14 @@ export default function HomeScreen() {
             }
         >
             <ThemedView>
-                <ThemedText type="title">JetWeather</ThemedText>
+                <ThemedText type="title">Welcome back, Bob!</ThemedText>
             </ThemedView>
             <ThemedView>
-                <ThemedText className="text-lg">Upcoming Flights</ThemedText>
-                <ThemedView className="flex-1">
+                <ThemedText className="text-lg">Here are your upcoming flights:</ThemedText>
+                <ThemedView className="flex-1 p-4">
                     {flights.map((flight) => (
                         <View key={flight.id} className="rounded-lg p-4 bg-white shadow-md my-2 border border-gray-200">
-                            <Text>
+                            <Text className="text-lg font-bold">
                                 {flight.departureCode} ➔ {flight.arrivalCode}
                             </Text>
                             <Text>{flight.dateTime}</Text>

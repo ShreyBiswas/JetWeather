@@ -41,14 +41,14 @@ export default function TabTwoScreen() {
                 />
             }
         >
-            <ThemedView className="p-4">
+            <ThemedView>
                 <ThemedText type="title">Cities</ThemedText>
             </ThemedView>
 
             <ScrollView className="p-4">
                 {weatherData.map((info, index) => (
                     <View key={index} className="flex-row items-center p-4 bg-white shadow-md my-2 border border-gray-200 rounded-lg">
-                        <Text className="flex-1">{info.city}</Text>
+                        <Text className="flex-1 font-bold text-lg">{info.city}</Text>
                         <Text className="font-bold pr-2">
                             {info.temperature}
                         </Text>
