@@ -59,6 +59,42 @@ export default function TabLayout() {
                     ),
                 }}
             />
+            <Tabs.Screen
+                name="(tabs)/city"
+                options={{
+                    title: "City Ex.",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="(tabs)/flight"
+                options={{
+                    title: "Flight Ex.",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="(tabs)/logon"
+                options={{
+                    title: "Logon Ex.",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
         </Tabs>
     );
 }
