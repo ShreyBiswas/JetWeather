@@ -16,8 +16,8 @@ import {
     NeuButtonSelector,
     NeuButtonTemporary,
 } from "@/components/NeuComponents/NeuButton";
-import { 
-    NeuSwitchingButton 
+import {
+    NeuSwitchingButton
 } from "@/components/NeuComponents/NeuSwitchingButton";
 
 import { Collapsible } from "@/components/Collapsible";
@@ -42,7 +42,7 @@ const mockWeatherData: WeatherInfo[] = [
 
 export default function TabTwoScreen() {
     const weatherData = mockWeatherData;
-    
+
     // group 2 columns per row
     const groupedWeatherData = weatherData.reduce(
         (acc, curr, idx) => {
@@ -79,7 +79,7 @@ export default function TabTwoScreen() {
                                 height={120}
                                 width={120}
                                 borderRadius={20}
-                                lightColor="#D5D5F0"
+                                lightColor="#F5F5FA"
                                 buttonTypeString="Unpressed"
                                 styling={{
                                     flex: 1,
@@ -97,6 +97,21 @@ export default function TabTwoScreen() {
                         ))}
                     </View>
                 ))}
+                <NeuSwitchingButton
+                    height={120}
+                    width={120}
+                    borderRadius={20}
+                    lightColor="#F5F5FA"
+                    buttonTypeString="Unpressed"
+                    styling={{
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 10,
+                    }}
+                >
+                    <Text className="text-xl font-bold">+ Add City</Text>
+                </NeuSwitchingButton>
             </ScrollView>
         </ParallaxScrollView>
     );

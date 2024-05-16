@@ -51,7 +51,12 @@ export default function HomeScreen() {
                         <TouchableOpacity
                             key={flight.id}
                             onPress={() => {
-                                navigator.navigate("(tabs)/flight", { flightId: flight.id });
+                                navigator.navigate("(tabs)/flight", { 
+                                    flightId: flight.id,
+                                    departureCode: flight.departureCode,
+                                    arrivalCode: flight.arrivalCode,
+                                    dateTime: flight.dateTime,
+                                });
                             }}
                         >
                             <View className="rounded-lg p-4 bg-white shadow-md my-2 border border-gray-200"

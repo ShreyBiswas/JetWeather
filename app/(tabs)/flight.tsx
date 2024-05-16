@@ -21,6 +21,8 @@ export default function FlightScreen() {
 
     const route = useRoute();
     const flightId = route.params.flightId;
+    const departureCode = route.params.departureCode;
+    const arrivalCode = route.params.arrivalCode;
 
     return (
         <ParallaxScrollView
@@ -34,6 +36,24 @@ export default function FlightScreen() {
         >
             <ThemedView>
                 <ThemedText type="title">Flight {flightId}</ThemedText>
+                <View className="flex-row justify-between mt-8">
+                    <View className="flex-1 items-center">
+                        <Text className="text-xl font-bold mb-2">{departureCode}</Text>
+                        <View className="flex-row items-center space-x-2">
+                            <Ionicons name="cloudy" size={24} color="black" />
+                            <Text className="text-lg">15°C</Text>
+                            <Text className="text-lg">Cloudy</Text>
+                        </View>
+                    </View>
+                    <View className="flex-1 items-center">
+                        <Text className="text-xl font-bold mb-2">{arrivalCode}</Text>
+                        <View className="flex-row items-center space-x-2">
+                            <Ionicons name="sunny" size={24} color="black" />
+                            <Text className="text-lg">30°C</Text>
+                            <Text className="text-lg">Sunny</Text>
+                        </View>
+                    </View>
+                </View>
             </ThemedView>
         </ParallaxScrollView>
     );
