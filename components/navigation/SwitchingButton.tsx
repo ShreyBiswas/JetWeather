@@ -9,11 +9,11 @@ import { TabBarIcon } from "./TabBarIcon";
 
 import { type IconProps } from "@/types/IconProps";
 
-const SwitchingButton: React.FC<SwitchingButtonProps> = ({
+export default function SwitchingButton({
     iconName,
     destinationScreen,
     ...otherProps
-}: IconProps) => {
+}: IconProps) {
     const navigation = useNavigation();
 
     const handlePress = () => {
@@ -25,6 +25,4 @@ const SwitchingButton: React.FC<SwitchingButtonProps> = ({
             <TabBarIcon name={iconName} color={"#737373"} />
         </TouchableOpacity>
     );
-};
-
-export default SwitchingButton;
+}
