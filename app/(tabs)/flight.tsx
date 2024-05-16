@@ -27,7 +27,7 @@ export default function FlightScreen() {
             }
         >
             <ThemedView>
-                <ThemedText type="title">Flight</ThemedText>
+                <ThemedText type="title">Flight XX123456</ThemedText>
             </ThemedView>
         </ParallaxScrollView>
     );
