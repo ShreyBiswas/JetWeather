@@ -51,6 +51,8 @@ export default function TabLayout() {
                             color={color}
                         />
                     ),
+                    tabBarButton: () => null,
+                    tabBarVisible: false,
                 }}
             />
             <Tabs.Screen
@@ -63,6 +65,8 @@ export default function TabLayout() {
                             color={color}
                         />
                     ),
+                    tabBarButton: () => null,
+                    tabBarVisible: false,
                 }}
             />
             <Tabs.Screen
@@ -75,12 +79,14 @@ export default function TabLayout() {
                             color={color}
                         />
                     ),
+                    tabBarButton: () => null,
+                    tabBarVisible: false,
                 }}
             />
             <Tabs.Screen
                 name="(tabs)/logon"
                 options={{
-                    title: "Logon Ex.",
+                    title: "Logon",
                     tabBarIcon: ({ color, focused }) => (
                         <TabBarIcon
                             name={focused ? "home" : "home-outline"}

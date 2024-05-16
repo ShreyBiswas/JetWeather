@@ -16,6 +16,9 @@ import {
     NeuButtonSelector,
     NeuButtonTemporary,
 } from "@/components/NeuComponents/NeuButton";
+import { 
+    NeuSwitchingButton 
+} from "@/components/NeuComponents/NeuSwitchingButton";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -71,7 +74,7 @@ export default function TabTwoScreen() {
                 {groupedWeatherData.map((group, idx) => (
                     <View key={idx} className="flex-row justify-between">
                         {group.map((city) => (
-                            <NeuInsetSquare
+                            <NeuSwitchingButton
                                 key={city.city}
                                 height={120}
                                 width={120}
@@ -84,11 +87,12 @@ export default function TabTwoScreen() {
                                     justifyContent: "center",
                                     marginBottom: 10,
                                 }}
+                                destinationScreen="(tabs)/city"
                             >
                                 <Text className="text-xl font-bold">{city.city}</Text>
                                 <Text className="text-l">{city.temperature}</Text>
                                 <Text className="text-l">{city.condition}</Text>
-                            </NeuInsetSquare>
+                            </NeuSwitchingButton>
                         ))}
                     </View>
                 ))}

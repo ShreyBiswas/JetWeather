@@ -41,3 +41,5 @@ export default function NeuSwitchingButton({
         </NeuButtonTemporary>
     );
 }
+
+export { NeuSwitchingButton };
