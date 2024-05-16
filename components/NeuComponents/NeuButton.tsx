@@ -2,19 +2,23 @@ import { JSXElementConstructor, useState } from "react";
 import { TouchableWithoutFeedback, Text, Image, View } from "react-native";
 import { NeuOutsetSquare, NeuSquareProps } from "./NeuSquare";
 
-export function NeuButtonPermanent({
+type NeuButtonProps = NeuSquareProps & { pressResponse: Function };
+
+export function NeuButtonToggle({
     height,
     width,
     borderRadius,
     lightColor,
     children,
     styling,
-}: NeuSquareProps) {
-    const [buttonType, setButtonType] = useState("Unpressed");
+    pressResponse,
+}: NeuButtonProps) {
+    const [buttonPressed, setButtonType] = useState(false);
 
     const handlePress = () => {
         console.log("Button Pressed");
-        setButtonType("Pressed");
+        pressResponse(!buttonPressed ? "Pressed" : "Unpressed");
+        setButtonType(!buttonPressed);
     };
 
     return (
@@ -25,7 +29,7 @@ export function NeuButtonPermanent({
                     width={width}
                     borderRadius={borderRadius}
                     lightColor={lightColor}
-                    buttonTypeString={buttonType}
+                    buttonTypeString={buttonPressed ? "Pressed" : "Unpressed"}
                     styling={styling}
                 >
                     {children}
@@ -36,13 +40,15 @@ export function NeuButtonPermanent({
 }
 
 export function NeuButtonTemporary({
+    // NOTE: Runs pressResponse on release
     height,
     width,
     borderRadius,
     lightColor,
     children,
     styling,
-}: NeuSquareProps) {
+    pressResponse,
+}: NeuButtonProps) {
     const [buttonType, setButtonType] = useState("Unpressed");
 
     const handlePress = () => {
@@ -53,6 +59,7 @@ export function NeuButtonTemporary({
     const handleRelease = () => {
         console.log("Button Released");
         setButtonType("Unpressed");
+        pressResponse();
     };
 
     return (
@@ -82,6 +89,7 @@ type NeuButtonSelectorProps = {
     defaultSelected: number;
     styling: any;
     pressedColour: string;
+    pressResponse: Function;
     buttonProps: NeuSquareProps;
     textStyling: any;
 };
@@ -92,7 +100,7 @@ export function NeuButtonSelector({
     defaultSelected,
     styling,
     pressedColour,
-
+    pressResponse,
     buttonProps,
     textStyling,
 }: NeuButtonSelectorProps) {
@@ -113,12 +121,13 @@ export function NeuButtonSelector({
 
         setButtonType(newButtonType);
         setButtonColour(newColours);
+        pressResponse(index);
     };
 
     let elements = [];
     for (let i = 0; i < nItems; i++) {
         elements.push(
-            <TouchableWithoutFeedback onPress={() => handlePress(i)}>
+            <TouchableWithoutFeedback onPress={() => handlePress(i)} key={i}>
                 <View>
                     <NeuOutsetSquare
                         height={buttonProps.height}
@@ -127,7 +136,6 @@ export function NeuButtonSelector({
                         lightColor={buttonColour[i]}
                         buttonTypeString={buttonType[i]}
                         styling={buttonProps.styling}
-                        key={i}
                     >
                         <Text style={textStyling}>{labels[i]}</Text>
                     </NeuOutsetSquare>
