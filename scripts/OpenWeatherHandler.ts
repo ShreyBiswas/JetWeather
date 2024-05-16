@@ -3,18 +3,18 @@ import OpenWeatherMap from 'openweathermap-ts';
 
 export class OpenWeatherHandler {
     private apiKey: string;
+    private handler: OpenWeatherMap;
+
 
 
     constructor(apiKey: string) {
         this.apiKey = apiKey;
+        this.handler = new OpenWeatherMap({api: this.apiKey})
     }
 
-    makeConnection() {
-        return new OpenWeatherMap(this.apiKey);
-    }
 
     async getWeatherByCity(city: string) {
-        const connection = this.makeConnection();
-        return await connection.getWeatherByCityName(city);
+        // Returns a promise
+        return this.handler.getCurrentWeatherByCityName(city);
     }
 }

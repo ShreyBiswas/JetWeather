@@ -9,13 +9,17 @@ import {
     NeuButtonTemporary,
 } from "@/components/NeuComponents/NeuButton";
 
-
-import { OpenWeather } from ':/scripts'
+import { OpenWeatherHandler } from "@/scripts/OpenWeatherHandler";
 
 //* This is a screen to test the neumorphic components
 // Use the below as examples for implementing any of them.
 
 export default function NeuromorphicScreen() {
+    let OpenWeather = new OpenWeatherHandler("API_KEY_HERE");
+    console.log(OpenWeather.getWeatherByCity("London"));
+
+    console.log;
+
     return (
         <View className="flex-1 items-center justify-center">
             {/* centres the box for viewing */}
@@ -37,7 +41,6 @@ export default function NeuromorphicScreen() {
                     className="h-5 w-5"
                 />
             </NeuOutsetSquare>
-
         </View>
     );
 }
