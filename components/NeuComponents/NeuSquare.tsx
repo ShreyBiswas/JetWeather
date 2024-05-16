@@ -186,6 +186,9 @@ export function NeuInsetSquare({
         NeuConfig,
     );
 
+    //TODO: Figure out how Neumorphic.tsx is making boxes inset
+    // what exactly lightShadow and darkShadow are doing
+
     return (
         <View className="">
             <NeumorphicBox></NeumorphicBox>
