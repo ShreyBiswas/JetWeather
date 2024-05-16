@@ -38,13 +38,7 @@ export default function TabLayout() {
                             name={focused ? "location" : "location-outline"}
                             color={color}
                         />
-                    ),
-                    tabBarButton: () => (
-                        <SwitchingButton
-                            iconName="grid"
-                            destinationScreen="(tabs)/cities"
-                        />
-                    ),
+                    )
                 }}
             />
             <Tabs.Screen
