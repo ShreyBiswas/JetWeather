@@ -52,7 +52,6 @@ export default function TabLayout() {
                         />
                     ),
                     tabBarButton: () => null,
-                    tabBarVisible: false,
                 }}
             />
             <Tabs.Screen
@@ -66,7 +65,6 @@ export default function TabLayout() {
                         />
                     ),
                     tabBarButton: () => null,
-                    tabBarVisible: false,
                 }}
             />
             <Tabs.Screen
@@ -80,7 +78,6 @@ export default function TabLayout() {
                         />
                     ),
                     tabBarButton: () => null,
-                    tabBarVisible: false,
                 }}
             />
             <Tabs.Screen
