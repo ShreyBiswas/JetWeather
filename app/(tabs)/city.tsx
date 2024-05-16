@@ -14,7 +14,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-export default function CityScreen() {
+export default function CityView() {
     //
     return (
         <ParallaxScrollView
@@ -26,7 +26,9 @@ export default function CityScreen() {
                 />
             }
         >
-
+            <ThemedView>
+                <ThemedText type="title">London</ThemedText>
+            </ThemedView>
         </ParallaxScrollView>
     );
 }

@@ -38,19 +38,49 @@ export default function TabLayout() {
                             name={focused ? "location" : "location-outline"}
                             color={color}
                         />
-                    ),
-                    tabBarButton: () => (
-                        <SwitchingButton
-                            iconName="grid"
-                            destinationScreen="(tabs)/cities"
-                        />
-                    ),
+                    )
                 }}
             />
             <Tabs.Screen
                 name="(tabs)/NeumorphicTests"
                 options={{
                     title: "Neumorphic Tests",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="(tabs)/city"
+                options={{
+                    title: "City Ex.",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="(tabs)/flight"
+                options={{
+                    title: "Flight Ex.",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                }}
+            />
+            <Tabs.Screen
+                name="(tabs)/logon"
+                options={{
+                    title: "Logon Ex.",
                     tabBarIcon: ({ color, focused }) => (
                         <TabBarIcon
                             name={focused ? "home" : "home-outline"}

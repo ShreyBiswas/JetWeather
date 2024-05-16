@@ -14,7 +14,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
-export default function FlightScreen() {
+export default function LogonScreen() {
     //
     return (
         <ParallaxScrollView
@@ -27,7 +27,7 @@ export default function FlightScreen() {
             }
         >
             <ThemedView>
-                <ThemedText type="title">Flight XX123456</ThemedText>
+                <ThemedText type="title">Log in</ThemedText>
             </ThemedView>
         </ParallaxScrollView>
     );
