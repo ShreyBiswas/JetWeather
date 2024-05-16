@@ -18,14 +18,15 @@ export default function NeuSwitchingButton({
     children,
     styling,
     destinationScreen,
+    destinationCity
 }: NeuSwitchingButtonProps) {
     let navigation = useNavigation();
 
-    const handlePressRelease = () => {
+    const handlePressRelease = (params) => {
         console.log(
             "Button Pressed, switching to " + destinationScreen + " screen",
         );
-        navigation.navigate(destinationScreen);
+        navigation.navigate(destinationScreen, params);
     };
 
     return (
@@ -35,7 +36,7 @@ export default function NeuSwitchingButton({
             borderRadius={borderRadius}
             lightColor={lightColor}
             styling={styling}
-            pressResponse={handlePressRelease}
+            pressResponse={() => handlePressRelease({ city: destinationCity })}
         >
             {children}
         </NeuButtonTemporary>

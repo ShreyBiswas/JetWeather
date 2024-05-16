@@ -13,10 +13,14 @@ import { ExternalLink } from "@/components/ExternalLink";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { useRoute } from "@react-navigation/native";
 
 // this is the city view, where you can see the weather for a city of interest eg London
 
 export default function CityView() {
+
+    const route = useRoute();
+    const city = route.params.city;
     
     const weatherDataByHour = [
         { time: "12:00", temperature: "15°C", condition: "Cloudy" },
@@ -36,7 +40,7 @@ export default function CityView() {
             }
         >
             <ThemedView>
-                <ThemedText type="title">London</ThemedText>
+                <ThemedText type="title">{city}</ThemedText>
                 <View className="flex-row items-center space-x-2 p-4 text-lg">
                     <Ionicons name="cloudy" size={24} color="black" />
                     <Text className="text-lg">15°C</Text>

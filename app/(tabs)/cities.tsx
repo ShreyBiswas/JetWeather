@@ -88,6 +88,7 @@ export default function TabTwoScreen() {
                                     marginBottom: 10,
                                 }}
                                 destinationScreen="(tabs)/city"
+                                destinationCity={city.city}
                             >
                                 <Text className="text-xl font-bold">{city.city}</Text>
                                 <Text className="text-l">{city.temperature}</Text>
