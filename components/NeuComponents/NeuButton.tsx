@@ -2,7 +2,7 @@ import { JSXElementConstructor, useState } from "react";
 import { TouchableWithoutFeedback, Text, Image, View } from "react-native";
 import { NeuOutsetSquare, NeuSquareProps } from "./NeuSquare";
 
-type NeuButtonProps = NeuSquareProps & { pressResponse: Function };
+export type NeuButtonProps = NeuSquareProps & { pressResponse: Function };
 
 export function NeuButtonToggle({
     height,
