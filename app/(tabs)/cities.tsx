@@ -7,6 +7,15 @@ import {
     View,
     Text,
 } from "react-native";
+import {
+    NeuOutsetSquare,
+    NeuInsetSquare,
+} from "@/components/NeuComponents/NeuSquare";
+import {
+    NeuButtonPermanent,
+    NeuButtonSelector,
+    NeuButtonTemporary,
+} from "@/components/NeuComponents/NeuButton";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -30,6 +39,19 @@ const mockWeatherData: WeatherInfo[] = [
 
 export default function TabTwoScreen() {
     const weatherData = mockWeatherData;
+    
+    // group 2 columns per row
+    const groupedWeatherData = weatherData.reduce(
+        (acc, curr, idx) => {
+            if (idx % 2 === 0) {
+                acc.push([curr]);
+            } else {
+                acc[acc.length - 1].push(curr);
+            }
+            return acc;
+        },
+        [] as WeatherInfo[][]
+    );
 
     return (
         <ParallaxScrollView
@@ -46,15 +68,28 @@ export default function TabTwoScreen() {
             </ThemedView>
 
             <ScrollView className="p-4">
-                {weatherData.map((info, index) => (
-                    <View key={index} className="flex-row items-center p-4 bg-white shadow-md my-2 border border-gray-200 rounded-lg">
-                        <Text className="flex-1 font-bold text-lg">{info.city}</Text>
-                        <Text className="font-bold pr-2">
-                            {info.temperature}
-                        </Text>
-                        <Text className="text-gray-500">
-                            {info.condition}
-                        </Text>
+                {groupedWeatherData.map((group, idx) => (
+                    <View key={idx} className="flex-row justify-between">
+                        {group.map((city) => (
+                            <NeuInsetSquare
+                                key={city.city}
+                                height={120}
+                                width={120}
+                                borderRadius={20}
+                                lightColor="#D5D5F0"
+                                buttonTypeString="Unpressed"
+                                styling={{
+                                    flex: 1,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    marginBottom: 10,
+                                }}
+                            >
+                                <Text className="text-xl font-bold">{city.city}</Text>
+                                <Text className="text-l">{city.temperature}</Text>
+                                <Text className="text-l">{city.condition}</Text>
+                            </NeuInsetSquare>
+                        ))}
                     </View>
                 ))}
             </ScrollView>

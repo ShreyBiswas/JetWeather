@@ -4,10 +4,11 @@ import {
     NeuInsetSquare,
 } from "@/components/NeuComponents/NeuSquare";
 import {
-    NeuButtonPermanent,
+    NeuButtonToggle,
     NeuButtonSelector,
     NeuButtonTemporary,
 } from "@/components/NeuComponents/NeuButton";
+import NeumorphicSwitchingButton from "@/components/NeuComponents"
 
 //* This is a screen to test the neumorphic components
 // Use the below as examples for implementing any of them.
@@ -54,7 +55,7 @@ export default function NeuromorphicScreen() {
                 />
             </NeuInsetSquare>
 
-            <NeuButtonPermanent
+            <NeuButtonToggle
                 height={100}
                 width={100}
                 borderRadius={20}
@@ -64,13 +65,16 @@ export default function NeuromorphicScreen() {
                     alignItems: "center",
                     justifyContent: "center",
                 }}
+                pressResponse={(buttonState: string) =>
+                    console.log("Button Press " + buttonState)
+                }
             >
                 <Text className="text-l">Permanent</Text>
                 <Image
                     source={require("../../assets/images/map.png")}
                     className="h-5 w-5"
                 />
-            </NeuButtonPermanent>
+            </NeuButtonToggle>
             <NeuButtonTemporary
                 height={100}
                 width={100}
@@ -81,6 +85,9 @@ export default function NeuromorphicScreen() {
                     alignItems: "center",
                     justifyContent: "center",
                 }}
+                pressResponse={() =>
+                    console.log("Temporary Button Pressed and Released")
+                }
             >
                 <Text className="text-l">Temporary</Text>
                 <Image
@@ -102,6 +109,9 @@ export default function NeuromorphicScreen() {
                     width: "90%",
                 }}
                 pressedColour="#D5D5F0"
+                pressResponse={(buttonIndex: number) =>
+                    console.log("Button Pressed: " + buttonIndex)
+                }
                 buttonProps={{
                     height: 100,
                     width: 100,

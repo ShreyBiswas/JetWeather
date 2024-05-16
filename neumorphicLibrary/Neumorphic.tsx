@@ -196,14 +196,17 @@ const Neumorph = (Component: any, config?: NeumorphConfig) => {
         backgroundColor = "#FFFFFF",
         height,
         width,
-        borderRadius,
+        borderRadius,   
     } = cStyle as IConfigParams;
     const { lightShadow, darkShadow, gradientProps } = calculateNeumorph(
         backgroundColor,
         config,
     );
 
-    console.log(lightShadow, darkShadow);
+    if (config && config.shape == NeumorphConfigShapes.Pressed) {
+        console.log(lightShadow, darkShadow);
+    }
+
     const NewComponent =
         !config || config.shape !== NeumorphConfigShapes.Pressed ? (
             <View
@@ -224,10 +227,40 @@ const Neumorph = (Component: any, config?: NeumorphConfig) => {
                 </View>
             </View>
         ) : (
-            <View style={{ height, width }}>
-                {/* <InsetShadow {...lightShadow}> */}
+            <View
+                style={{
+                    height,
+                    width,
+                }}
+            >
                 <InsetShadow {...lightShadow}>
+                    {/* <View style[] */}
+                    {/* <InsetShadow
+                    {...{
+                        left: false,
+                        // shadowColor: '#000000',
+                        shadowColor: "#ff0000",
+                        shadowOffset: 50,
+                        shadowOpacity: 1,
+                        shadowRadius: 50,
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        top: false,
+                    }}
+                > */}
                     <InsetShadow {...darkShadow}>
+                        {/* <InsetShadow
+                        {...{
+                            bottom: false,
+                            right: false,
+                            // shadowColor: "#d0d0d5",
+                            shadowColor: "#00ff00",
+                            shadowOffset: -50,
+                            shadowOpacity: 1,
+                            shadowRadius: 50,
+                            borderRadius: 100,
+                        }}
+                    > */}
                         <LinearGradient
                             {...{ style: cStyle, ...gradientProps }}
                         >
