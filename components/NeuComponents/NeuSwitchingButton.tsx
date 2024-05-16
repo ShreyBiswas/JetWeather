@@ -3,6 +3,12 @@ import { TouchableWithoutFeedback, Text, Image, View } from "react-native";
 import { NeuOutsetSquare, NeuSquareProps } from "./NeuSquare";
 import { NeuButtonTemporary, type NeuButtonProps } from "./NeuButton";
 
+import { useNavigation } from "@react-navigation/native";
+
+type NeuSwitchingButtonProps = Omit<NeuButtonProps, "pressResponse"> & {
+    destinationScreen: string;
+};
+
 export default function NeuSwitchingButton({
     // NOTE: Runs pressResponse on release
     height,
@@ -11,38 +17,27 @@ export default function NeuSwitchingButton({
     lightColor,
     children,
     styling,
-    pressResponse,
-}: NeuButtonProps) {
-    const [buttonType, setButtonType] = useState("Unpressed");
+    destinationScreen,
+}: NeuSwitchingButtonProps) {
+    let navigation = useNavigation();
 
-    const handlePress = () => {
-        console.log("Button Pressed");
-        setButtonType("Pressed");
-    };
-
-    const handleRelease = () => {
-        console.log("Button Released");
-        setButtonType("Unpressed");
-        pressResponse();
+    const handlePressRelease = () => {
+        console.log(
+            "Button Pressed, switching to " + destinationScreen + " screen",
+        );
+        navigation.navigate(destinationScreen);
     };
 
     return (
-        <TouchableWithoutFeedback
-            onPressIn={handlePress}
-            onPressOut={handleRelease}
+        <NeuButtonTemporary
+            height={height}
+            width={width}
+            borderRadius={borderRadius}
+            lightColor={lightColor}
+            styling={styling}
+            pressResponse={handlePressRelease}
         >
-            <View>
-                <NeuOutsetSquare
-                    height={height}
-                    width={width}
-                    borderRadius={borderRadius}
-                    lightColor={lightColor}
-                    buttonTypeString={buttonType}
-                    styling={styling}
-                >
-                    {children}
-                </NeuOutsetSquare>
-            </View>
-        </TouchableWithoutFeedback>
+            {children}
+        </NeuButtonTemporary>
     );
 }

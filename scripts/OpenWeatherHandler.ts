@@ -15,6 +15,6 @@ export class OpenWeatherHandler {
 
     async getWeatherByCity(city: string) {
         // Returns a promise
-        return this.handler.getCurrentWeatherByCityName(city);
+        return this.handler.getCurrentWeatherByCityName({cityName: city});
     }
 }
