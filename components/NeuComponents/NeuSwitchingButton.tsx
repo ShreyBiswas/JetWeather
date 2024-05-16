@@ -3,7 +3,7 @@ import { TouchableWithoutFeedback, Text, Image, View } from "react-native";
 import { NeuOutsetSquare, NeuSquareProps } from "./NeuSquare";
 import { NeuButtonTemporary, type NeuButtonProps } from "./NeuButton";
 
-export function NeuSwitchingButton({
+export default function NeuSwitchingButton({
     // NOTE: Runs pressResponse on release
     height,
     width,

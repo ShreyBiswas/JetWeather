@@ -14,6 +14,8 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
+// this is the city view, where you can see the weather for a city of interest eg London
+
 export default function CityView() {
     //
     return (

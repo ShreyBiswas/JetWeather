@@ -14,6 +14,8 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 
+// this is the flight screen for seeing the weather for both the start and end cities of a flight
+
 export default function FlightScreen() {
     //
     return (
