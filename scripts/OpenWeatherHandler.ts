@@ -86,11 +86,10 @@ export class OpenWeatherHandler {
                 temperature: days[i].main.temp,
                 feelsLike: days[i].main.feels_like,
                 cloudPrediction: days[i].clouds, // percentage of cloud coverage
+            }
         }
     }
 
 
 
 }
-
-
