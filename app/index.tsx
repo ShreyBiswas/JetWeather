@@ -1,25 +1,26 @@
-import { Image, StyleSheet, Platform, View, Text } from "react-native";
+import { Image, StyleSheet, Platform, View, Text, TouchableOpacity } from "react-native";
 
 import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { useNavigation } from "@react-navigation/native";
 
 const flights = [
     {
-        id: 1,
+        id: "SQ123",
         departureCode: "JFK",
         arrivalCode: "LAX",
         dateTime: "2024-05-14 15:30",
     },
     {
-        id: 2,
+        id: "BA456",
         departureCode: "LAX",
         arrivalCode: "ORD",
         dateTime: "2024-05-15 12:00",
     },
     {
-        id: 3,
+        id: "AF789",
         departureCode: "CDG",
         arrivalCode: "FRA",
         dateTime: "2024-05-16 09:20",
@@ -28,6 +29,7 @@ const flights = [
 ];
 
 export default function HomeScreen() {
+    const navigator = useNavigation();
     return (
         <ParallaxScrollView
             headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -43,14 +45,29 @@ export default function HomeScreen() {
             </ThemedView>
             <ThemedView>
                 <ThemedText className="text-lg">Here are your upcoming flights:</ThemedText>
+
                 <ThemedView className="flex-1 p-4">
                     {flights.map((flight) => (
-                        <View key={flight.id} className="rounded-lg p-4 bg-white shadow-md my-2 border border-gray-200">
-                            <Text className="text-lg font-bold">
-                                {flight.departureCode} ➔ {flight.arrivalCode}
-                            </Text>
-                            <Text>{flight.dateTime}</Text>
-                        </View>
+                        <TouchableOpacity
+                            key={flight.id}
+                            onPress={() => {
+                                navigator.navigate("(tabs)/flight", { 
+                                    flightId: flight.id,
+                                    departureCode: flight.departureCode,
+                                    arrivalCode: flight.arrivalCode,
+                                    dateTime: flight.dateTime,
+                                });
+                            }}
+                        >
+                            <View className="rounded-lg p-4 bg-white shadow-md my-2 border border-gray-200"
+
+                            >
+                                <Text className="text-lg font-bold">
+                                    {flight.departureCode} ➔ {flight.arrivalCode}
+                                </Text>
+                                <Text>{flight.dateTime}</Text>
+                            </View>
+                        </TouchableOpacity>
                     ))}
                 </ThemedView>
             </ThemedView>

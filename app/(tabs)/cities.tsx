@@ -16,6 +16,9 @@ import {
     NeuButtonSelector,
     NeuButtonTemporary,
 } from "@/components/NeuComponents/NeuButton";
+import {
+    NeuSwitchingButton
+} from "@/components/NeuComponents/NeuSwitchingButton";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -39,7 +42,7 @@ const mockWeatherData: WeatherInfo[] = [
 
 export default function TabTwoScreen() {
     const weatherData = mockWeatherData;
-    
+
     // group 2 columns per row
     const groupedWeatherData = weatherData.reduce(
         (acc, curr, idx) => {
@@ -71,12 +74,12 @@ export default function TabTwoScreen() {
                 {groupedWeatherData.map((group, idx) => (
                     <View key={idx} className="flex-row justify-between">
                         {group.map((city) => (
-                            <NeuInsetSquare
+                            <NeuSwitchingButton
                                 key={city.city}
                                 height={120}
                                 width={120}
                                 borderRadius={20}
-                                lightColor="#D5D5F0"
+                                lightColor="#F5F5FA"
                                 buttonTypeString="Unpressed"
                                 styling={{
                                     flex: 1,
@@ -84,14 +87,31 @@ export default function TabTwoScreen() {
                                     justifyContent: "center",
                                     marginBottom: 10,
                                 }}
+                                destinationScreen="(tabs)/city"
+                                destinationCity={city.city}
                             >
                                 <Text className="text-xl font-bold">{city.city}</Text>
                                 <Text className="text-l">{city.temperature}</Text>
                                 <Text className="text-l">{city.condition}</Text>
-                            </NeuInsetSquare>
+                            </NeuSwitchingButton>
                         ))}
                     </View>
                 ))}
+                <NeuSwitchingButton
+                    height={120}
+                    width={120}
+                    borderRadius={20}
+                    lightColor="#F5F5FA"
+                    buttonTypeString="Unpressed"
+                    styling={{
+                        flex: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginBottom: 10,
+                    }}
+                >
+                    <Text className="text-xl font-bold">+ Add City</Text>
+                </NeuSwitchingButton>
             </ScrollView>
         </ParallaxScrollView>
     );
