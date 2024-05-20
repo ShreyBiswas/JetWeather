@@ -1,6 +1,6 @@
 import { Text, View, Image } from "react-native";
-
-import { useEffect, useState } from "react";
+import { useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useFocusEffect } from "expo-router";
 
 import {
@@ -22,21 +22,23 @@ export default function NeuromorphicScreen() {
     let [rerender, setRerender] = useState(false); // call setRerender(!rerender) to force a rerender
     let [connected, setConnected] = useState(false);
 
-    let OpenWeather: OpenWeatherHandler;
+    let OpenWeather = useRef<OpenWeatherHandler>();
 
     //* Initially Load & Connect to OpenWeather API
     useEffect(() => {
-        OpenWeather = new OpenWeatherHandler(
+        OpenWeather.current = new OpenWeatherHandler(
             "fd23f4a9eec018ffc0d8db9243190913",
         );
+        console.log("Connected to OpenWeather API");
 
         let cities = ["London", "Tokyo", "New York", "Sidney"];
 
         for (let city of cities) {
-            OpenWeather.addCity(city)
+            OpenWeather.current
+                .addCity(city)
                 .then(() => {
                     console.log("Fetching data for " + city);
-                    console.log(OpenWeather.currentWeatherData);
+                    // console.log(OpenWeather.current.currentWeatherData);
                 })
                 .then(() => {
                     setConnected(true); // rerenders the screen
@@ -44,18 +46,22 @@ export default function NeuromorphicScreen() {
         }
     }, []);
 
-    useFocusEffect(() => {
-        if (!connected) {
-            return;
-        }
+    // Update whenever focus switches back to this screen
+    useFocusEffect(
+        useCallback(() => {
+            if (!connected) {
+                console.log("Not connected to OpenWeather API yet...");
+                return;
+            }
 
-        console.log("Focus switched back, updating Weather Data...");
+            console.log("Focus switched back, updating Weather Data...");
 
-        OpenWeather.updateCurrentWeatherData();
-        OpenWeather.updateForecast5Day();
+            OpenWeather?.current.updateCurrentWeatherData();
+            OpenWeather?.current.updateForecast5Day();
 
-        setRerender(!rerender);
-    }); //* Update Weather Data whenever focus switches to this screen
+            setRerender(!rerender);
+        }, []),
+    ); //* Update Weather Data whenever focus switches to this screen
 
     return (
         <View className="flex-1 items-center justify-center">
@@ -72,7 +78,13 @@ export default function NeuromorphicScreen() {
                     justifyContent: "center",
                 }}
             >
-                <Text className="text-l">{{}}</Text>
+                <Text className="text-l">
+                    {connected
+                        ? OpenWeather.current?.getCurrentWeatherDataByCity(
+                              "London",
+                          ).type
+                        : "Loading..."}
+                </Text>
                 <Image
                     source={require("../../assets/images/map.png")}
                     className="h-5 w-5"

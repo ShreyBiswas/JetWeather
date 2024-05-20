@@ -15,19 +15,87 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useRoute } from "@react-navigation/native";
 
+import { OpenWeatherHandler } from "@/scripts/OpenWeatherHandler";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { useFocusEffect } from "expo-router";
+import moment from "moment";
+
 // this is the city view, where you can see the weather for a city of interest eg London
 
 export default function CityView() {
-
     const route = useRoute();
     const city = route.params.city;
-    
-    const weatherDataByHour = [
-        { time: "12:00", temperature: "15°C", condition: "Cloudy" },
-        { time: "15:00", temperature: "16°C", condition: "Cloudy" },
-        { time: "18:00", temperature: "14°C", condition: "Cloudy" },
-        { time: "21:00", temperature: "12°C", condition: "Cloudy" },
-    ];
+
+    let [rerender, setRerender] = useState(false); // call setRerender(!rerender) to force a rerender
+    let OpenWeather = useRef<OpenWeatherHandler>();
+
+    //* Initially Load & Connect to OpenWeather API whenever focus switches to this screen
+    useFocusEffect(
+        useCallback(() => {
+            OpenWeather.current = new OpenWeatherHandler(
+                "fd23f4a9eec018ffc0d8db9243190913",
+            );
+            console.log("Connected to OpenWeather API");
+
+            let cities = ["London", "New York", "Tokyo", "Sydney"];
+            Promise.all(
+                cities.map((city) =>
+                    OpenWeather.current?.addCity(city).then(() => {
+                        console.log("Fetching data for " + city);
+                    }),
+                ),
+            ).then(() => {
+                console.log("Finished fetching data for all cities");
+                setRerender(!rerender);
+            });
+        }, []),
+    );
+
+    let forecast = OpenWeather.current?.getForecast5DayByCity(city);
+
+    forecast = forecast?.slice(0, 5); // only show the next 5 three-hour gaps
+
+    let weatherDataByHour = forecast?.map(
+        (data: {
+            time: Date;
+            type: string;
+            temperature: number;
+            feelsLike: number;
+            cloudPrediction: string;
+        }) => {
+            return {
+                time: moment(data.time).format("HH:mm"),
+                temperature: data.temperature + "°C",
+                condition: data.type,
+                feelsLike: data.feelsLike + "°C",
+            };
+        },
+    );
+
+    let currentWeather = OpenWeather.current?.getCurrentWeatherDataByCity(city);
+
+    let ioniconMap = new Map<string, string>([
+        ["Clear", "sunny"],
+        ["Clouds", "cloudy"],
+        ["Rain", "rainy"],
+        ["Snow", "snow"],
+        ["Mist", "cloudy"],
+        ["Fog", "cloudy"],
+        ["Drizzle", "rainy"],
+        ["Thunderstorm", "thunderstorm"],
+        ["Haze", "cloudy"],
+        ["Smoke", "cloudy"],
+        ["Dust", "cloudy"],
+        ["Sand", "cloudy"],
+        ["Ash", "cloudy"],
+        ["Squall", "cloudy"],
+        ["Tornado", "cloudy"],
+    ]);
+    let iconName = currentWeather
+        ? ioniconMap.get(currentWeather.type)
+        : "sunny";
+
+    console.log(iconName, currentWeather?.type);
 
     return (
         <ParallaxScrollView
@@ -42,28 +110,53 @@ export default function CityView() {
             <ThemedView>
                 <ThemedText type="title">{city}</ThemedText>
                 <View className="flex-row items-center space-x-2 p-4 text-lg">
-                    <Ionicons name="cloudy" size={24} color="black" />
-                    <Text className="text-lg">15°C</Text>
-                    <Text className="text-lg">Cloudy</Text>
+                    <Ionicons name={iconName} size={24} color="black" />
+                    {currentWeather ? (
+                        <Text>{currentWeather.temperature}°C</Text>
+                    ) : (
+                        <Text>Loading...</Text>
+                    )}
+                    {currentWeather ? (
+                        <Text>{currentWeather.type}</Text>
+                    ) : (
+                        <View></View>
+                    )}
                 </View>
                 <View>
-                    {weatherDataByHour.map((weather) => (
-                        <View key={weather.time} className="flex-row justify-between p-4">
-                            <Text>{weather.time}</Text>
-                            <Text>{weather.temperature}</Text>
-                            <Text>{weather.condition}</Text>
-                        </View>
-                    ))}
+                    {weatherDataByHour ? (
+                        weatherDataByHour?.map(
+                            (weather: {
+                                time: string;
+                                temperature: string;
+                                condition: string;
+                                feelsLike: string;
+                            }) => (
+                                <View
+                                    key={weather.time}
+                                    className="flex-row justify-between p-4"
+                                >
+                                    <Text>{weather.time}</Text>
+                                    <Text>{weather.temperature}</Text>
+                                    <Text>{weather.condition}</Text>
+                                </View>
+                            ),
+                        )
+                    ) : (
+                        <Text className="my-5">Loading...</Text>
+                    )}
                 </View>
                 <Collapsible title="More Info">
-                    <Text className="font-bold">
-                        Feels like: 9°C
-                    </Text>
-                    <Text>
-                        You should pack an umbrella and a light jacket.
-                    </Text>
+                    {currentWeather ? (
+                        <Text className="font-bold">
+                            Feels Like:
+                            {currentWeather.feelsLike}
+                            °C
+                        </Text>
+                    ) : (
+                        <Text>"Loading"</Text>
+                    )}
+                    <Text>You should pack an umbrella and a light jacket.</Text>
                 </Collapsible>
-
             </ThemedView>
         </ParallaxScrollView>
     );

@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 
 type NeuSwitchingButtonProps = Omit<NeuButtonProps, "pressResponse"> & {
     destinationScreen: string;
+    destinationCity: string;
 };
 
 export default function NeuSwitchingButton({
@@ -18,14 +19,16 @@ export default function NeuSwitchingButton({
     children,
     styling,
     destinationScreen,
-    destinationCity
+    destinationCity,
 }: NeuSwitchingButtonProps) {
     let navigation = useNavigation();
 
-    const handlePressRelease = (params) => {
+    const handlePressRelease = (params: any) => {
         console.log(
             "Button Pressed, switching to " + destinationScreen + " screen",
         );
+
+        //@ts-ignore
         navigation.navigate(destinationScreen, params);
     };
 
