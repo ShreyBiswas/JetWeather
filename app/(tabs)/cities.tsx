@@ -109,6 +109,7 @@ export default function TabTwoScreen() {
                         justifyContent: "center",
                         marginBottom: 10,
                     }}
+                    destinationScreen="(tabs)/addCity"
                 >
                     <Text className="text-xl font-bold">+ Add City</Text>
                 </NeuSwitchingButton>

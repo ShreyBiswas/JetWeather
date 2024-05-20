@@ -92,6 +92,32 @@ export default function TabLayout() {
                     ),
                 }}
             />
+            <Tabs.Screen
+                name="(tabs)/script_tests"
+                options={{
+                    title: "Script Tests",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                    tabBarButton: () => null,
+                }}
+            />
+            <Tabs.Screen
+                name="(tabs)/addCity"
+                options={{
+                    title: "Script Tests",
+                    tabBarIcon: ({ color, focused }) => (
+                        <TabBarIcon
+                            name={focused ? "home" : "home-outline"}
+                            color={color}
+                        />
+                    ),
+                    tabBarButton: () => null,
+                }}
+            />
         </Tabs>
     );
 }
