@@ -7,15 +7,7 @@ import {
     View,
     Text,
 } from "react-native";
-import {
-    NeuOutsetSquare,
-    NeuInsetSquare,
-} from "@/components/NeuComponents/NeuSquare";
-import {
-    NeuButtonPermanent,
-    NeuButtonSelector,
-    NeuButtonTemporary,
-} from "@/components/NeuComponents/NeuButton";
+
 import { NeuSwitchingButton } from "@/components/NeuComponents/NeuSwitchingButton";
 
 import { Collapsible } from "@/components/Collapsible";
@@ -81,6 +73,7 @@ export default function TabTwoScreen() {
         weatherData = OpenWeather.current.getCities().map((city) => {
             let currentWeather =
                 OpenWeather.current.getCurrentWeatherDataByCity(city);
+
             return {
                 city: city,
                 temperature: currentWeather?.temperature + "°C",
@@ -117,7 +110,10 @@ export default function TabTwoScreen() {
 
             <ScrollView className="p-4">
                 {groupedWeatherData.map((group, idx) => (
-                    <View key={idx} className="flex-row justify-between">
+                    <View
+                        key={idx}
+                        className="flex-row justify-between bg-transparent"
+                    >
                         {group.map((city) => (
                             <NeuSwitchingButton
                                 key={city.city}
@@ -129,7 +125,7 @@ export default function TabTwoScreen() {
                                     flex: 1,
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    marginBottom: 10,
+                                    marginBottom: 5,
                                 }}
                                 destinationScreen="(tabs)/city"
                                 destinationCity={city.city}

@@ -1,6 +1,6 @@
 import { JSXElementConstructor, useState } from "react";
 import { TouchableWithoutFeedback, Text, Image, View } from "react-native";
-import { NeuInsetSquare, NeuSquareProps } from "./NeuSquare";
+import { NeuOutsetSquare, NeuSquareProps } from "./NeuSquare";
 
 export type NeuButtonProps = NeuSquareProps & { pressResponse: Function };
 
@@ -67,8 +67,8 @@ export function NeuButtonTemporary({
             onPressIn={handlePress}
             onPressOut={handleRelease}
         >
-            <View>
-                <NeuInsetSquare
+            <View style={{ marginBottom: 10 }}>
+                <NeuOutsetSquare
                     height={height}
                     width={width}
                     borderRadius={borderRadius}
@@ -77,7 +77,7 @@ export function NeuButtonTemporary({
                     styling={styling}
                 >
                     {children}
-                </NeuInsetSquare>
+                </NeuOutsetSquare>
             </View>
         </TouchableWithoutFeedback>
     );

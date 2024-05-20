@@ -40,6 +40,7 @@ export default function NeuSwitchingButton({
             lightColor={lightColor}
             styling={styling}
             pressResponse={() => handlePressRelease({ city: destinationCity })}
+            
         >
             {children}
         </NeuButtonTemporary>

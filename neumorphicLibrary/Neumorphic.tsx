@@ -50,12 +50,12 @@ type LinearGradientStops = [string, string];
 interface LinearGradientProps {
     colors: LinearGradientStops;
     start: {
-        x: -0.707;
-        y: 0.707;
+        x: -0.101;
+        y: 0.101;
     };
     end: {
-        x: 0.707;
-        y: -0.707;
+        x: 0.101;
+        y: -0.101;
     };
 }
 
@@ -99,11 +99,11 @@ const calculateGradientStops = (
 
     const gradientColor1 = calculateColor(
         baseColor,
-        shape === NeumorphConfigShapes.Convex ? 0.07 : -0.1,
+        shape === NeumorphConfigShapes.Convex ? 0.01 : -0.1,
     );
     const gradientColor2 = calculateColor(
         baseColor,
-        shape === NeumorphConfigShapes.Concave ? 0.07 : -0.1,
+        shape === NeumorphConfigShapes.Concave ? 0.01 : -0.1,
     );
     return [gradientColor1, gradientColor2];
 };
@@ -122,6 +122,9 @@ const calculateNeumorph = (
     let lightShadow: ShadowStyles | InsetShadowProps;
     let darkShadow: ShadowStyles | InsetShadowProps;
 
+    console.log("config: ", config);
+    config.distance = 1000;
+
     if (config.shape !== NeumorphConfigShapes.Pressed) {
         lightShadow = {
             shadowColor: calculateColor(backgroundColor, config.intensity),
@@ -133,7 +136,7 @@ const calculateNeumorph = (
             shadowRadius: config.blur,
 
             backgroundColor: "#0000",
-            elevation: 24,
+            elevation: 7,
         } as ShadowStyles;
         darkShadow = {
             // shadowColor: calculateColor(backgroundColor, -1 * config.intensity),
@@ -146,7 +149,7 @@ const calculateNeumorph = (
             shadowRadius: config.blur,
             backgroundColor: "#0000",
 
-            elevation: 24,
+            elevation: 7,
         } as ShadowStyles;
     } else {
         lightShadow = {
@@ -169,8 +172,8 @@ const calculateNeumorph = (
 
     const gradientProps: LinearGradientProps = {
         colors: calculateGradientStops(config.shape, backgroundColor),
-        start: { x: -0.707, y: 0.707 },
-        end: { x: 0.707, y: -0.707 },
+        start: { x: -0.101, y: 0.101 },
+        end: { x: 0.101, y: -0.101 },
     };
 
     // console.log("{ lightShadow, darkShadow, gradient }: ", {
@@ -196,7 +199,7 @@ const Neumorph = (Component: any, config?: NeumorphConfig) => {
         backgroundColor = "#FFFFFF",
         height,
         width,
-        borderRadius,   
+        borderRadius,
     } = cStyle as IConfigParams;
     const { lightShadow, darkShadow, gradientProps } = calculateNeumorph(
         backgroundColor,

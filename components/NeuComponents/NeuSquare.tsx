@@ -53,7 +53,7 @@ let RegularNeumorphic = (
         children,
         styling,
     }: NeuSquareProps,
-    config?: any,
+    config: any,
 ) => {
     let backgroundColour = useThemeColor(
         { light: lightColor, dark: "#F8F8FF" },
@@ -111,9 +111,9 @@ export function NeuOutsetSquare({
     }
 
     let NeuConfig = {
-        distance: 50,
+        distance: 5,
         intensity: 0.15,
-        blur: 50,
+        blur: 5,
         shape: buttonType,
     };
 
@@ -130,7 +130,7 @@ export function NeuOutsetSquare({
     );
 
     return (
-        <View className="">
+        <View>
             <NeumorphicBox></NeumorphicBox>
         </View>
     );
@@ -186,7 +186,7 @@ export function NeuInsetSquare({
         NeuConfig,
     );
 
-    //TODO: Figure out how Neumorphic.tsx is making boxes inset
+    //TODO: Figure out how Neumorphic.tsx is trying to make boxes inset, and where it fails
     // what exactly lightShadow and darkShadow are doing
 
     return (
