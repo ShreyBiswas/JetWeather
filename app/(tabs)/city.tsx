@@ -35,14 +35,12 @@ export default function CityView() {
             OpenWeather.current = new OpenWeatherHandler(
                 "fd23f4a9eec018ffc0d8db9243190913",
             );
-            console.log("Connected to OpenWeather API");
+            console.log("Connected to OpenWeather API, fetching data...");
 
             let cities = ["London", "New York", "Tokyo", "Sydney"];
             Promise.all(
                 cities.map((city) =>
-                    OpenWeather.current?.addCity(city).then(() => {
-                        console.log("Fetching data for " + city);
-                    }),
+                    OpenWeather.current?.addCity(city).then(() => {}),
                 ),
             ).then(() => {
                 console.log("Finished fetching data for all cities");
@@ -95,8 +93,6 @@ export default function CityView() {
         ? ioniconMap.get(currentWeather.type)
         : "sunny";
 
-    console.log(iconName, currentWeather?.type);
-
     return (
         <ParallaxScrollView
             headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -148,8 +144,7 @@ export default function CityView() {
                 <Collapsible title="More Info">
                     {currentWeather ? (
                         <Text className="font-bold">
-                            Feels Like:
-                            {currentWeather.feelsLike}
+                            Feels Like: {currentWeather.feelsLike}
                             °C
                         </Text>
                     ) : (

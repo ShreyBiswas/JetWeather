@@ -90,9 +90,7 @@ export class OpenWeatherHandler {
             }
         }
 
+        return timestamps;
+    }
 
-
-}
-
-}
 }
