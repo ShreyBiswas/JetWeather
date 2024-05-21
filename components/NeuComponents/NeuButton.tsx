@@ -62,10 +62,16 @@ export function NeuButtonTemporary({
         pressResponse();
     };
 
+    const handleCancel = () => {
+        console.log("Button Press Cancelled");
+        setButtonType("Unpressed"); 
+    }
+
     return (
         <TouchableWithoutFeedback
             onPressIn={handlePress}
-            onPressOut={handleRelease}
+            onPressOut={handleCancel}
+            onPress={handleRelease}
         >
             <View style={{ marginBottom: 10 }}>
                 <NeuOutsetSquare
